@@ -2,7 +2,7 @@
   "todos": [
     {
       "id": "1",
-      "title": "첫 번째 할 일",
+      "title": "첫 번째 할 일dddd",
       "completed": false
     },
     {
@@ -12,58 +12,8 @@
     },
     {
       "id": "3",
-      "title": "세 번째 할 일",
+      "title": "세 번째 할 일zxczxc",
       "completed": true
-    },
-    {
-      "id": "0.5183139683936064",
-      "title": "sdfd",
-      "completed": false
-    },
-    {
-      "id": "0.6867680656781636",
-      "title": "ㅁㄴㅇ",
-      "completed": false
-    },
-    {
-      "id": "0.38638399450828764",
-      "title": "ㅁㄴㅇ",
-      "completed": false
-    },
-    {
-      "id": "0.44734973090147045",
-      "title": "111",
-      "completed": false
-    },
-    {
-      "id": "0.16990047386431284",
-      "title": "ㅁㄴㅇㅁㄴㅇ",
-      "completed": false
-    },
-    {
-      "id": "0.563297111423043",
-      "title": "asd",
-      "completed": false
-    },
-    {
-      "id": "0.6991588689150374",
-      "title": "fghfgh",
-      "completed": false
-    },
-    {
-      "id": "0.4155274916830882",
-      "title": "fdgghhgjfhgjfghj",
-      "completed": false
-    },
-    {
-      "id": "0.38682213198663895",
-      "title": "dsfadsfadfsdfasdf",
-      "completed": false
-    },
-    {
-      "id": "0.15916728159205662",
-      "title": "추가",
-      "completed": false
     }
   ]
 }
