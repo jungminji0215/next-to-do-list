@@ -1,11 +1,11 @@
 "use client";
 
 import { getTodos } from "@/service/todos";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import React from "react";
 
 export default function Todos() {
-  const { data } = useQuery({ queryKey: ["todos"], queryFn: getTodos });
+  const { data } = useSuspenseQuery({ queryKey: ["todos"], queryFn: getTodos });
 
   return (
     <>
