@@ -1,6 +1,6 @@
 "use client";
 
-import { getTodos, updateTodo } from "@/service/todos";
+import { deleteTodo, getTodos, updateTodo } from "@/service/todos";
 import { Todo } from "@/types/todos";
 import {
   useMutation,
@@ -8,12 +8,6 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import React, { useState } from "react";
-
-type UpdateTodoParams = {
-  title: string;
-  id: string;
-  completed: boolean;
-};
 
 export default function Todos() {
   const queryClient = useQueryClient();
@@ -30,6 +24,13 @@ export default function Todos() {
 
       setTodoId(null);
       setTitle("");
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => deleteTodo(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
     },
   });
 
@@ -60,6 +61,12 @@ export default function Todos() {
     setTitle("");
   };
 
+  const handleDelete = (id: string) => {
+    if (confirm("정말 삭제하시겠습니까?")) {
+      deleteMutation.mutate(id);
+    }
+  };
+
   return (
     <>
       <ul>
@@ -79,6 +86,7 @@ export default function Todos() {
               <>
                 <span>{todo.title}</span>
                 <button onClick={() => handleEdit(todo)}>수정</button>
+                <button onClick={() => handleDelete(todo.id)}>삭제</button>
               </>
             )}
           </li>
