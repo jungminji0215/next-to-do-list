@@ -21,7 +21,6 @@ export default function Todos() {
     mutationFn: (todo: Todo) => updateTodo(todo.title, todo.id, todo.completed),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
-
       setTodoId(null);
       setTitle("");
     },
@@ -47,11 +46,7 @@ export default function Todos() {
     }
   };
 
-  const handleEdit = (todo: {
-    id: string;
-    title: string;
-    completed: boolean;
-  }) => {
+  const handleEdit = (todo: Todo) => {
     setTodoId(todo.id);
     setTitle(todo.title);
   };
@@ -62,9 +57,15 @@ export default function Todos() {
   };
 
   const handleDelete = (id: string) => {
-    if (confirm("정말 삭제하시겠습니까?")) {
-      deleteMutation.mutate(id);
-    }
+    deleteMutation.mutate(id);
+  };
+
+  const handleToggleComplete = (todo: Todo, newCompleted: boolean) => {
+    updateMutation.mutate({
+      title: todo.title,
+      id: todo.id,
+      completed: newCompleted,
+    });
   };
 
   return (
@@ -84,7 +85,13 @@ export default function Todos() {
               </>
             ) : (
               <>
-                <span>{todo.title}</span>
+                <input
+                  type="checkbox"
+                  id="checkbox"
+                  checked={todo.completed}
+                  onChange={(e) => handleToggleComplete(todo, e.target.checked)}
+                />
+                <label htmlFor="checkbox">{todo.title}</label>
                 <button onClick={() => handleEdit(todo)}>수정</button>
                 <button onClick={() => handleDelete(todo.id)}>삭제</button>
               </>
