@@ -9,7 +9,15 @@ import {
 } from "@tanstack/react-query";
 import React, { useState } from "react";
 
-export default function Todos() {
+const getFilteredItems = (todos: Todo[], filter: string) => {
+  console.log("filter :>> ", filter);
+  if (filter === "전체") {
+    return todos;
+  }
+  return todos.filter((todo) => todo.completed === true);
+};
+
+export default function Todos({ filter }: { filter: string }) {
   const queryClient = useQueryClient();
 
   const [todoId, setTodoId] = useState<string | null>(null);
@@ -68,10 +76,12 @@ export default function Todos() {
     });
   };
 
+  const filtered = getFilteredItems(data, filter);
+
   return (
     <>
       <ul>
-        {data?.map((todo) => (
+        {filtered?.map((todo) => (
           <li key={todo.id}>
             {todoId === todo.id ? (
               <>
