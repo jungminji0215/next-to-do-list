@@ -4,7 +4,7 @@ export const getTodos = async (): Promise<Todo[]> => {
   // loading 테스트
   // await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  const response = await fetch("http://localhost:3001/todos");
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`);
   const data = await response.json();
   return data;
 };
@@ -15,7 +15,7 @@ export const addTodo = async (todo: string) => {
   //   loading 테스트
   // await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  const response = await fetch("http://localhost:3001/todos", {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -42,15 +42,18 @@ export const updateTodo = async (
 ) => {
   console.log("========== todos 수정 ==========");
 
-  const response = await fetch(`http://localhost:3001/todos/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      id,
-      title: todo,
-      completed,
-    }),
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/todos/${id}`,
+    {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id,
+        title: todo,
+        completed,
+      }),
+    }
+  );
 
   if (!response.ok) {
     throw new Error("fail update todo");
@@ -67,9 +70,12 @@ export const deleteTodo = async (
 ): Promise<{ success: boolean; message: string }> => {
   console.log("========== todos 삭제 ==========");
 
-  const response = await fetch(`http://localhost:3001/todos/${id}`, {
-    method: "DELETE",
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/todos/${id}`,
+    {
+      method: "DELETE",
+    }
+  );
 
   if (!response.ok) {
     throw new Error("fail delete todo");
