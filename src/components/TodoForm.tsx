@@ -24,18 +24,21 @@ export default function TodoForm() {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={todo}
-          onChange={(e) => setTodo(e.target.value)}
-          placeholder="할 일을 입력하세요"
-        />
-        <button type="submit" disabled={mutation.isPending}>
-          {mutation.isPending ? "등록중..." : "등록"}
-        </button>
-      </form>
-    </>
+    <form onSubmit={handleSubmit} className="border-t p-1 flex justify-between">
+      <input
+        type="text"
+        value={todo}
+        onChange={(e) => setTodo(e.target.value)}
+        placeholder="할 일을 입력하세요"
+        className="p-2 w-full"
+      />
+      <button
+        type="submit"
+        disabled={mutation.isPending}
+        className="bg-yellow-500 whitespace-nowrap rounded-md p-2"
+      >
+        {mutation.isPending ? "등록중..." : "등록"}
+      </button>
+    </form>
   );
 }

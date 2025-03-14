@@ -4,13 +4,13 @@ import { deleteTodo, getTodos, updateTodo } from "@/service/todos";
 import { Todo } from "@/types/todos";
 import {
   useMutation,
+  useQuery,
   useQueryClient,
-  useSuspenseQuery,
+  // useSuspenseQuery,
 } from "@tanstack/react-query";
 import React, { useState } from "react";
 
 const getFilteredItems = (todos: Todo[], filter: string) => {
-  console.log("filter :>> ", filter);
   if (filter === "전체") {
     return todos;
   }
@@ -23,7 +23,7 @@ export default function Todos({ filter }: { filter: string }) {
   const [todoId, setTodoId] = useState<string | null>(null);
   const [title, setTitle] = useState("");
 
-  const { data } = useSuspenseQuery({ queryKey: ["todos"], queryFn: getTodos });
+  const { data } = useQuery({ queryKey: ["todos"], queryFn: getTodos });
 
   const updateMutation = useMutation({
     mutationFn: (todo: Todo) => updateTodo(todo.title, todo.id, todo.completed),
@@ -76,39 +76,75 @@ export default function Todos({ filter }: { filter: string }) {
     });
   };
 
-  const filtered = getFilteredItems(data, filter);
+  console.log("data :>> ", data);
+  const filtered = getFilteredItems(data!, filter);
 
   return (
-    <>
-      <ul>
+    <section className="p-5">
+      <ul className="flex flex-col gap-5">
         {filtered?.map((todo) => (
           <li key={todo.id}>
             {todoId === todo.id ? (
-              <>
+              <div className="flex justify-between border-b border-gray-400 p-2 gap-5">
                 <input
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
-                <button onClick={() => handleUpdate(todo)}>저장</button>
-                <button onClick={handleCancelEdit}>취소</button>
-              </>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleUpdate(todo)}
+                    className="bg-yellow-500 text-white rounded-md p-1"
+                  >
+                    저장
+                  </button>
+                  <button
+                    onClick={handleCancelEdit}
+                    className="bg-black text-white rounded-md p-1"
+                  >
+                    취소
+                  </button>
+                </div>
+              </div>
             ) : (
-              <>
-                <input
-                  type="checkbox"
-                  id="checkbox"
-                  checked={todo.completed}
-                  onChange={(e) => handleToggleComplete(todo, e.target.checked)}
-                />
-                <label htmlFor="checkbox">{todo.title}</label>
-                <button onClick={() => handleEdit(todo)}>수정</button>
-                <button onClick={() => handleDelete(todo.id)}>삭제</button>
-              </>
+              <div className="flex justify-between border-b border-gray-400 p-2 gap-5">
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="checkbox"
+                    id="checkbox"
+                    checked={todo.completed}
+                    onChange={(e) =>
+                      handleToggleComplete(todo, e.target.checked)
+                    }
+                  />
+                  <label
+                    htmlFor="checkbox"
+                    className={
+                      todo.completed ? "line-through text-gray-500" : ""
+                    }
+                  >
+                    {todo.title}
+                  </label>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleEdit(todo)}
+                    className="bg-blue-500 text-white rounded-md p-1"
+                  >
+                    수정
+                  </button>
+                  <button
+                    onClick={() => handleDelete(todo.id)}
+                    className="bg-red-500 text-white rounded-md p-1"
+                  >
+                    삭제
+                  </button>
+                </div>
+              </div>
             )}
           </li>
         ))}
       </ul>
-    </>
+    </section>
   );
 }

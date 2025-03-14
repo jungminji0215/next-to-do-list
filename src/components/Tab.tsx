@@ -10,16 +10,21 @@ export default function Tab({
   onChange: (value: string) => void;
 }) {
   return (
-    <div>
-      <ul>
+    <nav className="border-b">
+      <ul className="flex">
         {filters.map((value, index) => {
           return (
-            <li key={index}>
+            <li
+              key={index}
+              className={`${
+                filter === value ? "bg-red-200" : null
+              } py-3 px-5 m-1 rounded-md`}
+            >
               <button onClick={() => onChange(value)}>{value}</button>
             </li>
           );
         })}
       </ul>
-    </div>
+    </nav>
   );
 }
