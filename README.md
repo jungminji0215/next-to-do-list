@@ -3,6 +3,20 @@
 
 https://github.com/user-attachments/assets/b65578da-2e8c-40da-afc1-8fe4f381e5e7
 
+## 프로젝트 소개
+
+### 기술
+
+Next.js 15, Tailwindcss, Tanstack Query
+
+### 기능
+
+Next.js 로 만든 투두 리스트 앱 입니다. 아래와 같은 기능을 개발하였습니다.
+
+- 할일 등록
+- 할일 수정
+- 할일 삭제
+
 ## 배포 링크
 
 https://jmj-to-do-list.vercel.app/
