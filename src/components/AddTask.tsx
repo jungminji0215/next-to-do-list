@@ -3,6 +3,7 @@
 import { addTodo } from "@/service/todos";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
+import Button from "./Button";
 
 export default function AddTask() {
   const queryClient = useQueryClient();
@@ -32,13 +33,9 @@ export default function AddTask() {
         placeholder="할 일을 입력하세요"
         className="p-2 w-full"
       />
-      <button
-        type="submit"
-        disabled={mutation.isPending}
-        className="bg-yellow-500 whitespace-nowrap rounded-md p-2"
-      >
+      <Button variant="warning" type="submit" disabled={mutation.isPending}>
         {mutation.isPending ? "등록중..." : "등록"}
-      </button>
+      </Button>
     </form>
   );
 }

@@ -10,6 +10,7 @@ import {
   // useSuspenseQuery,
 } from "@tanstack/react-query";
 import React, { useState } from "react";
+import Button from "./Button";
 
 const getFilteredItems = (todos: Todo[], filter: string) => {
   if (filter === "전체") {
@@ -79,7 +80,6 @@ export default function Todos() {
     });
   };
 
-  console.log("data :>> ", data);
   const filtered = getFilteredItems(data!, filter);
 
   return (
@@ -95,18 +95,12 @@ export default function Todos() {
                   onChange={(e) => setTitle(e.target.value)}
                 />
                 <div className="flex gap-2">
-                  <button
-                    onClick={() => handleUpdate(todo)}
-                    className="bg-yellow-500 text-white rounded-md p-1"
-                  >
+                  <Button variant="warning" onClick={() => handleUpdate(todo)}>
                     저장
-                  </button>
-                  <button
-                    onClick={handleCancelEdit}
-                    className="bg-black text-white rounded-md p-1"
-                  >
+                  </Button>
+                  <Button variant="secondary" onClick={handleCancelEdit}>
                     취소
-                  </button>
+                  </Button>
                 </div>
               </div>
             ) : (
@@ -130,18 +124,15 @@ export default function Todos() {
                   </label>
                 </div>
                 <div className="flex gap-2">
-                  <button
-                    onClick={() => handleEdit(todo)}
-                    className="bg-blue-500 text-white rounded-md p-1"
-                  >
+                  <Button variant="primary" onClick={() => handleEdit(todo)}>
                     수정
-                  </button>
-                  <button
+                  </Button>
+                  <Button
+                    variant="danger"
                     onClick={() => handleDelete(todo.id)}
-                    className="bg-red-500 text-white rounded-md p-1"
                   >
                     삭제
-                  </button>
+                  </Button>
                 </div>
               </div>
             )}
