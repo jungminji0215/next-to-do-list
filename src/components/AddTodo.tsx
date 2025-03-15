@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import Button from "./Button";
 
-export default function AddTask() {
+export default function AddTodo() {
   const queryClient = useQueryClient();
 
   const [todo, setTodo] = useState("");
@@ -25,13 +25,13 @@ export default function AddTask() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="border-t p-1 flex justify-between">
+    <form onSubmit={handleSubmit} className="p-1 flex justify-between gap-2">
       <input
         type="text"
         value={todo}
         onChange={(e) => setTodo(e.target.value)}
         placeholder="할 일을 입력하세요"
-        className="p-2 w-full"
+        className="p-2 w-full bg-gray-200 rounded-lg"
       />
       <Button variant="warning" type="submit" disabled={mutation.isPending}>
         {mutation.isPending ? "등록중..." : "등록"}

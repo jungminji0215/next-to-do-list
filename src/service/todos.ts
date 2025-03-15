@@ -1,38 +1,47 @@
 import { Todo } from "@/types/todos";
 
 export const getTodos = async (): Promise<Todo[]> => {
-  // loading 테스트
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  try {
+    // loading 테스트
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`);
-  const data = await response.json();
-  return data;
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`);
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "투두 조회에 실패했습니다.");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message || "알 수 없는 오류가 발생했습니다.");
+    }
+    throw new Error("알 수 없는 오류가 발생했습니다.");
+  }
 };
 
 export const addTodo = async (todo: string) => {
-  console.log("========== todos 등록 ==========");
-
-  //   loading 테스트
-  // await new Promise((resolve) => setTimeout(resolve, 2000));
-
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      id: String(Math.random()),
-      title: todo,
-      completed: false,
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error("fail add todo");
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: String(Math.random()),
+        title: todo,
+        completed: false,
+      }),
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "투두 추가에 실패했습니다.");
+    }
+    return await response.json();
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message || "알 수 없는 오류가 발생했습니다.");
+    }
+    throw new Error("알 수 없는 오류가 발생했습니다.");
   }
-
-  return {
-    success: true,
-    message: "성공",
-  };
 };
 
 export const updateTodo = async (
@@ -40,49 +49,51 @@ export const updateTodo = async (
   id: string,
   completed: boolean
 ) => {
-  console.log("========== todos 수정 ==========");
-
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/todos/${id}`,
-    {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id,
-        title: todo,
-        completed,
-      }),
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/todos/${id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id,
+          title: todo,
+          completed,
+        }),
+      }
+    );
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "투두 수정에 실패했습니다.");
     }
-  );
-
-  if (!response.ok) {
-    throw new Error("fail update todo");
+    return await response.json();
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message || "알 수 없는 오류가 발생했습니다.");
+    }
+    throw new Error("알 수 없는 오류가 발생했습니다.");
   }
-
-  return {
-    success: true,
-    message: "성공",
-  };
 };
 
 export const deleteTodo = async (
   id: string
 ): Promise<{ success: boolean; message: string }> => {
-  console.log("========== todos 삭제 ==========");
-
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/todos/${id}`,
-    {
-      method: "DELETE",
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/todos/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "투두 삭제에 실패했습니다.");
     }
-  );
-
-  if (!response.ok) {
-    throw new Error("fail delete todo");
+    return await response.json();
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message || "알 수 없는 오류가 발생했습니다.");
+    }
+    throw new Error("알 수 없는 오류가 발생했습니다.");
   }
-
-  return {
-    success: true,
-    message: "성공",
-  };
 };

@@ -4,8 +4,8 @@ import Providers from "@/providers/QueryProvider";
 import { FilterProvider } from "@/context/FilterContext";
 
 export const metadata: Metadata = {
-  title: "투두 리스트",
-  description: "투두 리스트 앱",
+  title: "Todo List",
+  description: "Todo List App",
 };
 
 export default function RootLayout({

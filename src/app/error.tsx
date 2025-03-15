@@ -15,15 +15,14 @@ export default function Error({
   }, [error]);
 
   return (
-    <div>
-      <h2>Something went wrong!</h2>
+    <div className="text-center mt-10">
+      <h2 className="text-2xl font-bold">문제가 발생했습니다.</h2>
+      <p className="my-4">오류 메시지: {error.message}</p>
       <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
+        onClick={() => reset()}
+        className="bg-blue-500 text-white rounded-md p-2"
       >
-        Try again
+        다시 시도하기
       </button>
     </div>
   );
