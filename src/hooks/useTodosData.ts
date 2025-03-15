@@ -2,10 +2,10 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getTodos, updateTodo, deleteTodo } from "@/service/todos";
 import { Todo } from "@/types/todos";
 
-export function useTodosData() {
+export default function useTodosData() {
   const queryClient = useQueryClient();
 
-  const { data, isLoading } = useQuery<Todo[]>({
+  const todosQuery = useQuery<Todo[]>({
     queryKey: ["todos"],
     queryFn: getTodos,
   });
@@ -25,8 +25,7 @@ export function useTodosData() {
   });
 
   return {
-    todos: data,
-    isLoading,
+    todosQuery,
     updateTodo: updateMutation.mutate,
     deleteTodo: deleteMutation.mutate,
   };

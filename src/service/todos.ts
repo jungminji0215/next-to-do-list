@@ -2,9 +2,6 @@ import { Todo } from "@/types/todos";
 
 export const getTodos = async (): Promise<Todo[]> => {
   try {
-    // loading 테스트
-    // await new Promise((resolve) => setTimeout(resolve, 1000));
-
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`);
     if (!response.ok) {
       const errorData = await response.json();
@@ -26,7 +23,7 @@ export const addTodo = async (todo: string) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        id: String(Math.random()),
+        id: String(Math.floor(1000000000 + Math.random() * 9000000000)),
         title: todo,
         completed: false,
       }),

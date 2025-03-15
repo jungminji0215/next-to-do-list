@@ -2,10 +2,10 @@
 
 import React from "react";
 import { useFilter } from "@/context/FilterContext";
-import { useTodosData } from "@/hooks/useTodosData";
 import Loading from "./Loading";
 import TodoItem from "./TodoItem";
 import { Todo } from "@/types/todos";
+import useTodosData from "@/hooks/useTodosData";
 
 const getFilteredItems = (todos: Todo[], filter: string): Todo[] => {
   if (filter === "전체") {
@@ -16,7 +16,11 @@ const getFilteredItems = (todos: Todo[], filter: string): Todo[] => {
 
 export default function Todos() {
   const { filter } = useFilter();
-  const { todos, isLoading, updateTodo, deleteTodo } = useTodosData();
+  const {
+    todosQuery: { data: todos, isLoading },
+    updateTodo,
+    deleteTodo,
+  } = useTodosData();
 
   if (isLoading) return <Loading />;
 
