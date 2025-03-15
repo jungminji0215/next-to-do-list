@@ -1,5 +1,6 @@
 "use client";
 
+import { useFilter } from "@/context/FilterContext";
 import { deleteTodo, getTodos, updateTodo } from "@/service/todos";
 import { Todo } from "@/types/todos";
 import {
@@ -17,7 +18,9 @@ const getFilteredItems = (todos: Todo[], filter: string) => {
   return todos.filter((todo) => todo.completed === true);
 };
 
-export default function Todos({ filter }: { filter: string }) {
+export default function Todos() {
+  const { filter } = useFilter();
+
   const queryClient = useQueryClient();
 
   const [todoId, setTodoId] = useState<string | null>(null);

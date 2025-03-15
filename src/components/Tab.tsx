@@ -1,14 +1,11 @@
+"use client";
+
+import { useFilter } from "@/context/FilterContext";
 import React from "react";
 
-export default function Tab({
-  filters,
-  filter,
-  onChange,
-}: {
-  filters: string[];
-  filter: string;
-  onChange: (value: string) => void;
-}) {
+export default function Tab() {
+  const { filters, filter, setFilter } = useFilter();
+
   return (
     <nav className="border-b">
       <ul className="flex">
@@ -20,7 +17,7 @@ export default function Tab({
                 filter === value ? "bg-red-200" : null
               } py-3 px-5 m-1 rounded-md`}
             >
-              <button onClick={() => onChange(value)}>{value}</button>
+              <button onClick={() => setFilter(value)}>{value}</button>
             </li>
           );
         })}

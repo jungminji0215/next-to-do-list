@@ -2,7 +2,7 @@ import { Todo } from "@/types/todos";
 
 export const getTodos = async (): Promise<Todo[]> => {
   // loading 테스트
-  // await new Promise((resolve) => setTimeout(resolve, 2000));
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`);
   const data = await response.json();

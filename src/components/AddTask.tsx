@@ -4,7 +4,7 @@ import { addTodo } from "@/service/todos";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 
-export default function TodoForm() {
+export default function AddTask() {
   const queryClient = useQueryClient();
 
   const [todo, setTodo] = useState("");
